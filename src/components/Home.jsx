@@ -1,6 +1,7 @@
 import { Card, Carousel, Button, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./home.css";
+import Product from "./Product";
 import React from "react";
 
 function Home() {
@@ -39,22 +40,7 @@ function Home() {
         </Carousel.Item>
       </Carousel>
       <Container fluid>
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={""} alt="product image" />
-          <Card.Body>
-            <Card.Title>product name</Card.Title>
-            <Card.Text>asd</Card.Text>
-            <Button
-              style={{
-                backgroundColor: "#cd9042",
-                border: "none",
-                color: "black",
-              }}
-            >
-              add to cart
-            </Button>
-          </Card.Body>
-        </Card>
+        <Product />
       </Container>
     </div>
   );

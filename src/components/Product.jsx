@@ -1,6 +1,6 @@
 import React from "react";
 import "./product.css";
-import { Card, Col,  Alert } from "react-bootstrap";
+import { Card, Col, Alert } from "react-bootstrap";
 
 class Product extends React.Component {
   state = { products: [], loading: true };
@@ -8,7 +8,7 @@ class Product extends React.Component {
   fetchProducts = async () => {
     this.setState({ loading: true });
     try {
-      const response = await fetch("http://localhost:4001/products/");
+      const response = await fetch("http://localhost:3003/products/");
       let products = await response.json();
       console.log(products);
       if (response.ok) {
