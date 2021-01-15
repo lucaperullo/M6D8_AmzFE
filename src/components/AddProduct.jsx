@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal, Form, Container } from "react-bootstrap";
 
 class AddProduct extends React.Component {
   state = {
@@ -26,7 +26,7 @@ class AddProduct extends React.Component {
 
   handleDelete = async () => {
     try {
-      const url = `http://localhost:4001/products/${this.props._id}`;
+      const url = `http://localhost:3003/products/${this.props._id}`;
       let response = await fetch(url, {
         method: "DELETE",
         headers: {},
@@ -44,7 +44,7 @@ class AddProduct extends React.Component {
 
   EditFetch = async () => {
     try {
-      let response = await fetch(`http://localhost:4001/products`, {
+      let response = await fetch(`http://localhost:3003/products`, {
         method: "POST",
         body: JSON.stringify(this.state.product),
         headers: new Headers({
@@ -63,6 +63,7 @@ class AddProduct extends React.Component {
             brand: "",
             price: "",
             category: "",
+            imageUrl: "",
           },
           errMessage: "",
           loading: false,
@@ -84,17 +85,17 @@ class AddProduct extends React.Component {
       });
     }
   };
-  handleImageUpload = (event) => {
-    console.log("target", event.target);
-    const formData = new FormData();
-    formData.append("image", event.target.files[0]);
-    this.setState({ formData });
-  };
+  // handleImageUpload = (event) => {
+  //   console.log("target", event.target);
+  //   const formData = new FormData();
+  //   formData.append("image", event.target.files[0]);
+  //   this.setState({ formData });
+  // };
 
   UploadImageFetch = async (id) => {
     try {
       let response = await fetch(
-        `http://localhost:4001/products/${id}/upload`,
+        `http://localhost:3003/products/${id}`,
 
         {
           method: "POST",
@@ -124,7 +125,6 @@ class AddProduct extends React.Component {
     console.log(ProductId);
     this.UploadImageFetch(ProductId._id);
   };
-  //
 
   handleShow = () => this.setState({ show: true });
   handleClose = () => this.setState({ show: false });
@@ -132,14 +132,11 @@ class AddProduct extends React.Component {
   render() {
     return (
       <>
-        <Button
-          style={{ zIndex: "999", position: "absolute", top: "200px" }}
-          variant="warning"
-          className="mx-5"
-          onClick={this.handleShow}
-        >
-          Add a New Product
-        </Button>
+        <Container style={{}}>
+          <Button variant="warning" className="mx-5" onClick={this.handleShow}>
+            Add a New Product
+          </Button>
+        </Container>
         {this.state.show && (
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
@@ -204,8 +201,9 @@ class AddProduct extends React.Component {
                   <Form.Label>Change the Image</Form.Label>
                   <Form.Control
                     id="fileUpload"
-                    type="file"
-                    onChange={this.handleImageUpload}
+                    type="text"
+                    value={this.state.product.imageUrl}
+                    //onChange={this.handleImageUpload}
                     required
                   />
                 </Form.Group>
