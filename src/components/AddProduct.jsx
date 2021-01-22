@@ -9,6 +9,7 @@ class AddProduct extends React.Component {
       name: "",
       description: "",
       brand: "",
+      imageUrl: "",
       price: "",
       category: "book",
     },
@@ -44,6 +45,7 @@ class AddProduct extends React.Component {
 
   EditFetch = async () => {
     try {
+      console.log("EditFetch()");
       let response = await fetch(`http://localhost:3003/products`, {
         method: "POST",
         body: JSON.stringify(this.state.product),
@@ -61,9 +63,10 @@ class AddProduct extends React.Component {
             name: "",
             description: "",
             brand: "",
+            imageUrl:
+              "https://images-eu.ssl-images-amazon.com/images/G/29/AmazonServices/Site/US/Product/FBA/Outlet/Merchandising/IT_Outlet_OD_DSC_379x304_Dec_2020._SY304_CB413250337_.jpg",
             price: "",
             category: "",
-            imageUrl: "",
           },
           errMessage: "",
           loading: false,
@@ -92,39 +95,40 @@ class AddProduct extends React.Component {
   //   this.setState({ formData });
   // };
 
-  UploadImageFetch = async (id) => {
-    try {
-      let response = await fetch(
-        `http://localhost:3003/products/${id}`,
+  // UploadImageFetch = async (id) => {
+  //   try {
+  //     let response = await fetch(
+  //       `http://localhost:3003/products/${id}`,
 
-        {
-          method: "POST",
-          body: this.state.formData,
-        }
-      );
+  //       {
+  //         method: "POST",
+  //         body: this.state.formData,
+  //       }
+  //     );
 
-      if (response.ok) {
-        let result = response.json();
-        alert("Product saved!");
-        this.setState({ loading: false });
-        console.log(result);
-        this.handleClose();
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //     if (response.ok) {
+  //       let result = response.json();
+  //       alert("Product saved!");
+  //       this.setState({ loading: false });
+  //       console.log(result);
+  //       this.handleClose();
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   submitForm = (e) => {
     e.preventDefault();
     this.setState({ loading: true });
-    this.postProduct();
+    this.EditFetch();
   };
-  postProduct = async () => {
-    let ProductId = await this.EditFetch();
-    console.log(ProductId);
-    this.UploadImageFetch(ProductId._id);
-  };
+
+  // postProduct = async () => {
+  //   let ProductId = await this.EditFetch();
+  //   console.log(ProductId);
+  //   // this.UploadImageFetch(ProductId._id);
+  // };
 
   handleShow = () => this.setState({ show: true });
   handleClose = () => this.setState({ show: false });
@@ -191,19 +195,18 @@ class AddProduct extends React.Component {
                     type="number"
                     value={this.state.product.price}
                     onChange={this.updateField}
-                    placeholder="Ex: 567"
+                    placeholder="price €"
                     required
                   />
                   <p>$</p>
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Change the Image</Form.Label>
+                  <Form.Label>Set image</Form.Label>
                   <Form.Control
-                    id="fileUpload"
                     type="text"
-                    value={this.state.product.imageUrl}
-                    //onChange={this.handleImageUpload}
+                    value="https://m.media-amazon.com/images/I/81kWGFf7ipL._AC_UL320_.jpg"
+                    onChange={this.updateField}
                     required
                   />
                 </Form.Group>

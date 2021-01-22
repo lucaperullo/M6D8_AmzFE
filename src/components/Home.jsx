@@ -1,6 +1,6 @@
 import { Card, Carousel, Button, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./home.css";
+import "./css/home.css";
 import Product from "./Product";
 import React from "react";
 

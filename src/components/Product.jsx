@@ -1,5 +1,5 @@
 import React from "react";
-import "./product.css";
+import "./css/product.css";
 import { Card, Col, Alert } from "react-bootstrap";
 
 class Product extends React.Component {
@@ -8,24 +8,23 @@ class Product extends React.Component {
   fetchProducts = async () => {
     this.setState({ loading: true });
     try {
-      const response = await fetch("http://localhost:3003/products/");
-      let products = await response.json();
-      console.log(products);
+      let response = await fetch("http://localhost:3003/products/");
       if (response.ok) {
-        this.setState({ products, loading: false });
+        let products = await response.json();
+        return products;
       } else {
-        this.setState({ loading: false });
-        <Alert variant="danger">Something went wrong</Alert>;
+        alert("an error accurred");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
   componentDidMount = () => {
     this.fetchProducts();
   };
   render() {
-    console.log(this.props.history);
+    console.log(this.state.pruducts);
+
     return (
       <>
         {this.state.products.map((product) => (
